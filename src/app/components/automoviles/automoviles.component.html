@@ -1,0 +1,19 @@
+<table class="table table-hover table-sm table-bordered table-striped">
+  <thead>
+    <tr>
+      <th class="text-center">ID</th>
+      <th class="text-center">MARCA</th>
+      <th class="text-center">AÑO</th>
+      <th class="text-center">USADO</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+  <tbody>
+    <tr *ngFor="let auto of automoviles">
+      <td>{{ auto.id }}</td>
+      <td class="text-right">{{ auto.Marca }}</td>
+      <td class="text-right">{{ auto.Anio }}</td>
+      <td class="text-right">{{ auto.Usado ? 'SI' : 'NO' }}</td>
+    </tr>
+  </tbody>
+</table>

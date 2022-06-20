@@ -11,5 +11,7 @@ export class AutomovilesService {
     this.resourceUrl = environment.ConexionWebApiProxy + 'Automoviles/';
   }
 
-  get() {}
+  get() {
+  return this.httpClient.get(this.resourceUrl)
+  }
 }
