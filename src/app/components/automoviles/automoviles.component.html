@@ -19,21 +19,39 @@
 </table>
 
 <form>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-4 col-md-2">
-      <label class="col-form-label">Marca:</label>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-4 col-md-2">
+        <label class="col-form-label">Marca:</label>
+      </div>
+      <div class="col-sm-8 col-md-4">
+        <input
+          type="text"
+          id="Mar"
+          name="Mar"
+          class="form-control"
+          maxlength="55"
+        />
+      </div>
     </div>
-    <div class="col-sm-8 col-md-4">
-      <input type="text" id = "Mar" name="Mar" class="form-control"  maxlength="55"/>
-    </div>
-  </div>
-  <hr>
-  <!-- Botones -->
-  <div class="row justify-content-center botones">
-    <button type="button" class="btn btn-primary" (click)="buscar()">
-          <i class="fa fa-search"> </i> Buscar
+    <hr />
+    <!-- Botones -->
+    <div class="row justify-content-center botones">
+      <button type="button" class="btn btn-primary" (click)="buscar()">
+        <i class="fa fa-search"> </i> Buscar
       </button>
+    </div>
   </div>
-</div>
+</form>
+
+<form>
+  <div class="container-fluid">
+    <!-- Botones -->
+    <div class="row justify-content-center botones">
+      <button type="button" class="btn btn-primary" (click)="buscar()">
+        <i class="fa fa-plus"> </i>
+        <a class="text-white" routerLink="/formAutomovil"> Agregar </a>
+      </button>
+    </div>
+  </div>
 </form>

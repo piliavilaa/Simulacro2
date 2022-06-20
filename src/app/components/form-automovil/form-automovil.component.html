@@ -1,0 +1,54 @@
+<form>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-4 col-md-2">
+        <label class="col-form-label">Marca</label>
+      </div>
+      <div class="col-sm-8 col-md-4">
+        <input
+          type="text"
+          id="Mar"
+          name="Mar"
+          class="form-control"
+          maxlength="55"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 col-md-2">
+        <label class="col-form-label">Año:</label>
+      </div>
+      <div class="col-sm-8 col-md-4">
+        <input
+          type="number"
+          id="anio"
+          name="anio"
+          class="form-control"
+          maxlength="55"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 col-md-2">
+        <label class="col-form-label">Usado</label>
+      </div>
+      <div class="col-sm-8 col-md-4">
+        <select class="form-control" name="Activo" formControlName="Activo">
+          <option value="si">Si</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+    </div>
+
+    <hr />
+    <!-- Botones -->
+    <div class="row justify-content-center botones">
+      <button type="button" class="btn btn-primary" (click)="aceptar()">
+        Aceptar
+      </button>
+      <button type="button" class="btn btn-primary">
+        <a class = "text-white" routerLink="/automoviles"> Cancelar </a>
+      </button>
+    </div>
+  </div>
+</form>

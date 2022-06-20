@@ -28,6 +28,7 @@ import { DatePickerParserFormatter } from './shared/DatePickerParserFormater';
 import { DatePickerSpanish } from './shared/DatePickerSpanish';
 import { FormFocusDirective } from './shared/form-focus.directive';
 import { AutomovilesComponent } from './components/automoviles/automoviles.component';
+import { FormAutomovilComponent } from './components/form-automovil/form-automovil.component';
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import { AutomovilesComponent } from './components/automoviles/automoviles.compo
       { path: 'articulos', component: ArticulosComponent },
       { path: 'articulosfamilias', component: ArticulosFamiliasComponent },
       { path: 'automoviles', component: AutomovilesComponent },
+      { path: 'formAutomovil', component: FormAutomovilComponent },
       { path: '**', redirectTo: '/inicio', pathMatch: 'full' },
     ]),
     NgbModule,
@@ -57,6 +59,7 @@ import { AutomovilesComponent } from './components/automoviles/automoviles.compo
     ArticulosFamiliasComponent,
     ArticulosComponent,
     AutomovilesComponent,
+    FormAutomovilComponent,
     ModalDialogComponent,
   ],
   entryComponents: [ModalDialogComponent],
