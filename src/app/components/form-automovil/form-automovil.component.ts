@@ -27,13 +27,20 @@ export class FormAutomovilComponent implements OnInit {
     if (activo.value == 'si') {
       usado = true;
     }
-
-    this.servicioAutomoviles
-      .post(marcaAutomovil.value, parseInt(anio.value), usado)
-      .subscribe((res: Automovil) => {
-        auto = res;
-        console.log(auto);
-      });
-    
+    if (marcaAutomovil.value == '') {
+      alert('Falta una marca');
+      return;
+    }
+    if (parseInt(anio.value) == null || parseInt(anio.value) <= 0) {
+      alert('El año no es valido');
+      return;
+    } else {
+      this.servicioAutomoviles
+        .post(marcaAutomovil.value, parseInt(anio.value), usado)
+        .subscribe((res: Automovil) => {
+          auto = res;
+          console.log(auto);
+        });
+    }
   }
 }
