@@ -33,7 +33,12 @@
         <label class="col-form-label">Usado</label>
       </div>
       <div class="col-sm-8 col-md-4">
-        <select class="form-control" name="Activo" formControlName="Activo">
+        <select
+          class="form-control"
+          id="Usado"
+          name="Activo"
+          idformControlName="Activo"
+        >
           <option value="si">Si</option>
           <option value="no">No</option>
         </select>
@@ -47,7 +52,7 @@
         Aceptar
       </button>
       <button type="button" class="btn btn-primary">
-        <a class = "text-white" routerLink="/automoviles"> Cancelar </a>
+        <a class="text-white" routerLink="/automoviles"> Cancelar </a>
       </button>
     </div>
   </div>

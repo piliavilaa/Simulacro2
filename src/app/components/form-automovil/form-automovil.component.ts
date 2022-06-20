@@ -13,5 +13,20 @@ export class FormAutomovilComponent implements OnInit {
   }
 
   aceptar(){
+    const marcaAutomovil = document.getElementById('Mar') as HTMLInputElement;
+    const anio = document.getElementById('anio') as HTMLInputElement;
+    var activo = document.getElementById('Usado') as HTMLInputElement;
+    var usado = false;
+    
+    if (activo.value == "si")
+    {
+      usado = true;
     }
+
+    
+
+    
   }
+
+
+}
