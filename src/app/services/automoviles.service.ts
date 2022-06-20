@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 
@@ -12,6 +12,12 @@ export class AutomovilesService {
   }
 
   get() {
-  return this.httpClient.get(this.resourceUrl)
+    return this.httpClient.get(this.resourceUrl);
+  }
+
+  getMarca(marca: string) {
+    let params = new HttpParams();
+    params = params.append('Marca', marca);
+    return this.httpClient.get(this.resourceUrl, { params: params });
   }
 }

@@ -8,9 +8,10 @@ import { AutomovilesService } from '../../services/automoviles.service';
   styleUrls: ['./automoviles.component.css'],
 })
 export class AutomovilesComponent implements OnInit {
-  automoviles : Automovil [] = [];
+  automoviles: Automovil[] = [];
+
   constructor(private servicioAutomoviles: AutomovilesService) {}
-  
+
   ngOnInit() {
     this.listado();
   }
@@ -19,5 +20,14 @@ export class AutomovilesComponent implements OnInit {
     this.servicioAutomoviles.get().subscribe((res: Automovil[]) => {
       this.automoviles = res;
     });
+  }
+
+  buscar() {
+    const marcaAutomovil = document.getElementById('Mar') as HTMLInputElement;
+    this.servicioAutomoviles
+      .getMarca(marcaAutomovil.value)
+      .subscribe((res: Automovil[]) => {
+        this.automoviles = res;
+      });
   }
 }
