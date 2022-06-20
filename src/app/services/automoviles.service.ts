@@ -10,4 +10,6 @@ export class AutomovilesService {
   constructor(private httpClient: HttpClient) {
     this.resourceUrl = environment.ConexionWebApiProxy + 'Automoviles/';
   }
+
+  get() {}
 }
