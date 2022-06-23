@@ -16,8 +16,8 @@ export class LibrosService {
     return this.httpClient.get(this.resourceUrl);
   }
 
-  put(obj: Libro) {
-    return this.httpClient.put(this.resourceUrl + obj.Id, obj);
+  put(Id: number, obj: Libro) {
+    return this.httpClient.put(this.resourceUrl + Id, obj);
   }
 
 

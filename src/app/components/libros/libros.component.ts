@@ -14,89 +14,71 @@ import { LibrosService } from '../../services/libros.service';
   styleUrls: ['./libros.component.css'],
 })
 export class LibrosComponent implements OnInit {
-  constructor(
-    private servicioLibros: LibrosService,
-    private formBuilder: FormBuilder
-  ) {}
+  Titulo = 'Libros';
   libros: Libro[] = [];
-
-  TituloAccionABMC = {
-    A: '(Agregar)',
-    B: '(Eliminar)',
-    M: '(Modificar)',
-    C: '(Consultar)',
-    L: '(Listado)',
-  };
   AccionABMC = 'L';
   submitted = false;
-  Titulo = 'Libros';
-  FormRegistro: FormGroup;
+
+  OpcionesActivo = [
+    { Id: null, Nombre: '' },
+    { Id: true, Nombre: 'SI' },
+    { Id: false, Nombre: 'NO' },
+  ];
+
+  FormLibro = new FormGroup({
+    Id: new FormControl(0),
+    Titulo: new FormControl('', [
+      Validators.required,
+      Validators.minLength(1),
+      Validators.maxLength(100),
+    ]),
+    Stock: new FormControl(null, [
+      Validators.required,
+      Validators.pattern('[0-9]{1,7}'),
+    ]),
+    Activo: new FormControl(true),
+  });
+
   Mensajes = {
     SD: ' No se encontraron registros...',
     RD: ' Revisar los datos ingresados...',
   };
 
-  ngOnInit() {
-    this.listado();
-    this.ConstruirForms();
+  constructor(
+    private servicioLibros: LibrosService,
+    private formBuilder: FormBuilder
+  ) {}
+
+  ngOnInit(): void {
+    this.Listado();
   }
 
-  ConstruirForms() {
-    this.FormRegistro = this.formBuilder.group({
-      Id: null,
-      Titulo: [
-        null,
-        [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(100),
-        ],
-      ],
-      Stock: [
-        null,
-        [
-          Validators.required,
-          Validators.min(1),
-          Validators.max(100),
-          Validators.pattern('[0-9]{4}'),
-        ],
-      ],
-      Activo: [null, [Validators.required]],
-    });
-  }
-
-  listado() {
+  Listado() {
     this.servicioLibros.get().subscribe((res: Libro[]) => {
       this.libros = res;
     });
   }
 
   Modificar(libro: Libro) {
-    this.submitted = false;
-    this.FormRegistro.markAsUntouched();
-    this.FormRegistro.patchValue(libro)
+    this.FormLibro.patchValue(libro);
     this.AccionABMC = 'M';
+  }
 
+  Grabar() {
+    this.submitted = true;
+    if (this.FormLibro.invalid) {
+      return;
+    }
+    this.servicioLibros
+      .put(this.FormLibro.value.Id, this.FormLibro.value)
+      .subscribe((res: any) => {
+        this.Volver();
+        //this.modalDialogService.Alert('Registro modificado correctamente.');
+        this.Listado();
+      });
   }
 
   Volver() {
     this.AccionABMC = 'L';
-  }
-
-  Agregar() {}
-
-  Delete(id: number) {}
-
-  Grabar() {
-    let libroAModificar: Libro = this.FormRegistro.value;
-
-    if (this.AccionABMC == 'M') {
-      // modificar put
-      this.servicioLibros.put(libroAModificar).subscribe((libro: Libro) => {
-        this.Volver();
-        alert('Registro modificado correctamente.');
-        this.listado();
-      });
-    }
   }
 }
