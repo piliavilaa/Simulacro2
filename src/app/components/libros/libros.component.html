@@ -1,0 +1,172 @@
+<div class="tituloPagina">
+  {{ Titulo }}
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-9">
+      <table
+        class="table table-hover table-sm table-bordered table-striped"
+        *ngIf="AccionABMC == 'L' && libros?.length > 0"
+      >
+        <thead>
+          <tr>
+            <th class="text-center">ID</th>
+            <th class="text-center">TITULO</th>
+            <th class="text-center">STOCK</th>
+            <th class="text-center">ACTIVO</th>
+            <th class="text-center">MODIFICAR</th>
+            <th class="text-center">BORRAR</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tbody>
+          <tr *ngFor="let libro of libros">
+            <td>{{ libro.Id }}</td>
+            <td class="text-right">{{ libro.Titulo }}</td>
+            <td class="text-right">{{ libro.Stock }}</td>
+            <td class="text-right">{{ libro.Activo ? 'SI' : 'NO' }}</td>
+            <td>
+              <button
+                class="btn btn-sm btn-primary"
+                title="Modificar"
+                (click)="Modificar(libro)"
+              >
+                Modificar
+              </button>
+            </td>
+            <td>
+              <button
+                class="btn btn-sm btn-primary"
+                title="Delete"
+                (click)="Delete(libro.Id)"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<form name="FormRegistro" [formGroup]="FormRegistro" *ngIf="AccionABMC !== 'L'">
+  <div class="container-fluid">
+    <fieldset [disabled]="AccionABMC === 'C'">
+      <!--campo nombre-->
+      <div class="row">
+        <div class="col-sm-4 col-md-3 offset-md-1">
+          <label class="col-form-label" for="Titulo">
+            Titulo
+            <span class="text-danger">*</span>:
+          </label>
+        </div>
+
+        <div class="col-sm-8 col-md-6">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="Titulo"
+            [ngClass]="{
+              'is-invalid':
+                (FormRegistro.controls['Titulo'].touched || submitted) &&
+                FormRegistro.controls['Titulo'].errors
+            }"
+          />
+
+          <div
+            class="text-danger"
+            *ngIf="
+              (FormRegistro.controls['Titulo'].touched || submitted) &&
+              FormRegistro.controls['Titulo'].hasError('required')
+            "
+          >
+            Dato requerido.
+          </div>
+
+          <div
+            class="text-danger"
+            *ngIf="
+              (FormRegistro.controls['Titulo'].touched || submitted) &&
+              (FormRegistro.controls['Titulo'].hasError('minlength') ||
+                FormRegistro.controls['Titulo'].hasError('maxlength'))
+            "
+          >
+            Dato texto, 4 a 100 caracteres.
+          </div>
+        </div>
+      </div>
+
+      <!--campo stock-->
+      <div class="row">
+        <div class="col-sm-4 col-md-3 offset-md-1">
+          <label class="col-form-label" for="Stock">
+            Stock
+            <span class="text-danger">*</span>:
+          </label>
+        </div>
+
+        <div class="col-sm-8 col-md-6">
+          <input
+            type="text"
+            name="Stock"
+            class="form-control"
+            formControlName="Stock"
+            [ngClass]="{
+              'is-invalid':
+                (FormRegistro.controls['Stock'].touched || submitted) &&
+                FormRegistro.controls['Stock'].errors
+            }"
+          />
+
+          <div
+            class="text-danger"
+            *ngIf="
+              (FormRegistro.controls['Stock'].touched || submitted) &&
+              FormRegistro.controls['Stock'].hasError('required')
+            "
+          >
+            Dato requerido.
+          </div>
+        </div>
+      </div>
+
+      <!--campo activo-->
+      <div class="row">
+        <div class="col-sm-4 col-md-3 offset-md-1">
+          <label class="col-form-label" for="Activo">Activo:</label>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Botones Grabar, Cancelar/Volver' -->
+    <hr />
+    <div class="row justify-content-center botones">
+      <button
+        type="button"
+        *ngIf="AccionABMC !== 'C'"
+        class="btn btn-primary"
+        (click)="Grabar()"
+      >
+        <i class="fa fa-check"></i> Grabar
+      </button>
+
+      &nbsp;
+
+      <button type="button" class="btn btn-warning" (click)="Volver()">
+        <i class="fa fa-undo"></i>
+        {{ AccionABMC == 'C' ? 'Volver' : 'Cancelar' }}
+      </button>
+    </div>
+
+    <!--texto: Revisar los datos ingresados...-->
+    <div
+      *ngIf="submitted && FormRegistro.invalid"
+      class="row alert alert-danger mensajesAlert"
+    >
+      <i class="fa fa-exclamation-sign"></i>{{ Mensajes['RD'] }}
+    </div>
+  </div>
+</form>
