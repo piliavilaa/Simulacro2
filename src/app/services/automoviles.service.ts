@@ -20,6 +20,7 @@ export class AutomovilesService {
 
   getMarca(marca: string) {
     let params = new HttpParams();
+
     if (marca != null && marca != '') {
       params = params.append('Marca', marca);
     }
@@ -27,19 +28,7 @@ export class AutomovilesService {
   }
 
 
-  post(marca: string, anio: number, usado: boolean){
-    this.get().subscribe((res: Automovil[]) => {
-      this.idAutomoviles = res;
-    });
-    let auto = {
-     id : this.idAutomoviles.length,
-     Marca : marca,
-     Anio : anio,
-     Usado : usado
-   }
 
-   return this.httpClient.post(this.resourceUrl, auto);
-  }
 
 
 }

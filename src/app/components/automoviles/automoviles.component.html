@@ -1,3 +1,7 @@
+<div class="tituloPagina">
+  {{ Titulo }}
+</div>
+
 <!-- Formulario Filtro de busqueda, se ve cuando la accion es Listado(busqueda/listado)-->
 <form name="FormBusqueda" [formGroup]="FormBusqueda" *ngIf="AccionABMC == 'L'">
   <div class="container-fluid">
@@ -32,22 +36,164 @@
   </div>
 </form>
 
-<table class="table table-hover table-sm table-bordered table-striped">
-  <thead>
-    <tr>
-      <th class="text-center">ID</th>
-      <th class="text-center">MARCA</th>
-      <th class="text-center">AÑO</th>
-      <th class="text-center">USADO</th>
-    </tr>
-  </thead>
-  <tbody></tbody>
-  <tbody>
-    <tr *ngFor="let auto of automoviles">
-      <td>{{ auto.id }}</td>
-      <td class="text-right">{{ auto.Marca }}</td>
-      <td class="text-right">{{ auto.Anio }}</td>
-      <td class="text-right">{{ auto.Usado ? 'SI' : 'NO' }}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+      <table
+        class="table table-hover table-sm table-bordered table-striped"
+        *ngIf="AccionABMC == 'L' && automoviles?.length > 0"
+      >
+        <thead>
+          <tr>
+            <th class="text-center">ID</th>
+            <th class="text-center">MARCA</th>
+            <th class="text-center">AÑO</th>
+            <th class="text-center">USADO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let auto of automoviles">
+            <td>{{ auto.id }}</td>
+            <td class="text-right">{{ auto.Marca }}</td>
+            <td class="text-right">{{ auto.Anio }}</td>
+            <td class="text-right">{{ auto.Usado ? 'SI' : 'NO' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Registro -->
+<form name="FormAuto" [formGroup]="FormAuto" *ngIf="AccionABMC != 'L'">
+  <div class="container-fluid">
+    <fieldset>
+      <!-- Auto.Marca -->
+      <div class="row">
+        <div class="col-sm-4 col-md-3 offset-md-1">
+          <label class="col-form-label" for="Marca"
+            >Marca<span class="text-danger">*</span>:</label
+          >
+        </div>
+        <div class="col-sm-8 col-md-6">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="Marca"
+            [ngClass]="{
+              'is-invalid':
+                (FormAuto.controls['Marca'].touched || submitted) &&
+                FormAuto.controls['Marca'].errors
+            }"
+          />
+          <div
+            class="validacion"
+            *ngIf="
+              (FormAuto.controls['Marca'].touched || submitted) &&
+              FormAuto.controls['Marca'].hasError('required')
+            "
+          >
+            Dato requerido.
+          </div>
+          <div
+            class="validacion"
+            *ngIf="
+              (FormAuto.controls['Marca'].touched || submitted) &&
+              (FormAuto.controls['Marca'].hasError('minlength') ||
+                FormAuto.controls['Marca'].hasError('maxlength'))
+            "
+          >
+            La marca tiene que tener entre 1 y 100 caracteres.
+          </div>
+        </div>
+      </div>
+
+      <!-- Auto.Anio -->
+      <div class="row">
+        <div class="col-sm-4 col-md-3 offset-md-1">
+          <label class="col-form-label" for="Anio">
+            AÑO<span class="text-danger">*</span>:
+          </label>
+        </div>
+        <div class="col-sm-8 col-md-6">
+          <input
+            type="text"
+            name="Anio"
+            class="form-control"
+            formControlName="Anio"
+            [ngClass]="{
+              'is-invalid':
+                (FormAuto.controls['Anio'].touched || submitted) &&
+                FormAuto.controls['Anio'].errors
+            }"
+          />
+          <div
+            class="validacion"
+            *ngIf="
+              (FormAuto.controls['Anio'].touched || submitted) &&
+              FormAuto.controls['Anio'].hasError('required')
+            "
+          >
+            Dato requerido.
+          </div>
+          <div
+            class="validacion"
+            *ngIf="
+              (FormAuto.controls['Anio'].touched || submitted) &&
+              FormAuto.controls['Anio'].hasError('pattern')
+            "
+          >
+            Dato numerico, 1970 a 2022.
+          </div>
+        </div>
+      </div>
+
+      <!--campo usado-->
+      <div class="row">
+        <div class="col-sm-4 col-md-3 offset-md-1">
+          <label class="col-form-label" for="Usado">Usado:</label>
+        </div>
+        <div class="col-sm-8 col-md-6">
+          <!-- ref?? disabled html no fucniona en reactive forms? -->
+          <select
+            class="form-control"
+            name="Usado"
+            formControlName="Usado"
+            [disabled]="true"
+          >
+            <option *ngFor="let opt of OpcionesUsado" [ngValue]="opt.Id">
+              ‌{{ opt.Nombre }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Botones Aceptar, Cancelar/Volver' -->
+    <hr />
+    <div class="row justify-content-center botones">
+      <button
+        type="button"
+        *ngIf="AccionABMC !== 'C'"
+        class="btn btn-primary"
+        (click)="Aceptar()"
+      >
+        <i class="fa fa-check"></i> Aceptar
+      </button>
+      &nbsp;
+      <button type="button" class="btn btn-warning" (click)="Cancelar()">
+        <i class="fa fa-undo"></i>
+        {{ AccionABMC == 'C' ? 'Volver' : 'Cancelar' }}
+      </button>
+    </div>
+
+    <!--texto: Revisar los datos ingresados...-->
+    <div
+      *ngIf="submitted && FormAuto.invalid"
+      class="row alert alert-danger mensajesAlert"
+    >
+      <i class="fa fa-exclamation-sign"></i>{{ Mensajes['RD'] }}
+    </div>
+  </div>
+</form>

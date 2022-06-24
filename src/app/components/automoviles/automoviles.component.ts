@@ -10,6 +10,7 @@ import { AutomovilesService } from '../../services/automoviles.service';
 })
 export class AutomovilesComponent implements OnInit {
   automoviles: Automovil[] = [];
+  Titulo = 'Automoviles';
   AccionABMC = 'L';
   submitted = false;
   OpcionesUsado = [
@@ -55,8 +56,10 @@ export class AutomovilesComponent implements OnInit {
     });
   }
 
-  Agregar(libro: Libro) {
-    this.AccionABMC = 'M';
+  Agregar() {
+    this.AccionABMC = 'A';
+    this.FormAuto.reset({ Id: 0 });
+    this.submitted = false;;
   }
 
   Buscar() {
@@ -66,5 +69,14 @@ export class AutomovilesComponent implements OnInit {
         this.automoviles = res;
       });
   }
-  Aceptar() {}
+  Aceptar() {
+
+
+  }
+
+  Cancelar(){
+
+  }
+
+
 }
