@@ -72,17 +72,20 @@ export class AutomovilesComponent implements OnInit {
   }
   Aceptar() {
     this.submitted = true;
-    let automovil: Automovil = this.FormAuto.value;
-    if (this.AccionABMC == 'A') {
-      this.servicioAutomoviles.post(automovil).subscribe((automovilNuevo: Automovil) => {
-        this.Cancelar();
-        this.modalDialogService.Alert('Registro agregado correctamente.');
-        this.Buscar();
-      });
+    if (this.FormAuto.invalid) {
+      return;
     }
+    let automovil: Automovil = this.FormAuto.value;
+    this.servicioAutomoviles
+        .post(automovil)
+        .subscribe((automovilNuevo: Automovil) => {
+          this.Cancelar();
+          this.modalDialogService.Alert('Registro agregado correctamente.');
+        });
   }
 
   Cancelar() {
     this.AccionABMC = 'L';
+    this.Buscar();
   }
 }
