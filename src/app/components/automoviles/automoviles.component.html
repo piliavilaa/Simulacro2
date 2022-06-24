@@ -173,18 +173,12 @@
     <!-- Botones Aceptar, Cancelar/Volver' -->
     <hr />
     <div class="row justify-content-center botones">
-      <button
-        type="button"
-        *ngIf="AccionABMC !== 'C'"
-        class="btn btn-primary"
-        (click)="Aceptar()"
-      >
+      <button type="button" class="btn btn-primary" (click)="Aceptar()">
         <i class="fa fa-check"></i> Aceptar
       </button>
-      &nbsp;
       <button type="button" class="btn btn-warning" (click)="Cancelar()">
         <i class="fa fa-undo"></i>
-        {{ AccionABMC == 'C' ? 'Volver' : 'Cancelar' }}
+        Cancelar
       </button>
     </div>
 

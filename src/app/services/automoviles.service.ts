@@ -27,8 +27,7 @@ export class AutomovilesService {
     return this.httpClient.get(this.resourceUrl, { params: params });
   }
 
-
-
-
-
+  post(auto: Automovil) {
+    return this.httpClient.post(this.resourceUrl, auto);
+  }
 }

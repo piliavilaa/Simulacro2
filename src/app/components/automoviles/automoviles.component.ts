@@ -43,6 +43,7 @@ export class AutomovilesComponent implements OnInit {
     SD: ' No se encontraron registros...',
     RD: ' Revisar los datos ingresados...',
   };
+  modalDialogService: any;
 
   constructor(private servicioAutomoviles: AutomovilesService) {}
 
@@ -59,7 +60,7 @@ export class AutomovilesComponent implements OnInit {
   Agregar() {
     this.AccionABMC = 'A';
     this.FormAuto.reset({ Id: 0 });
-    this.submitted = false;;
+    this.submitted = false;
   }
 
   Buscar() {
@@ -70,13 +71,15 @@ export class AutomovilesComponent implements OnInit {
       });
   }
   Aceptar() {
-
-
+    let automovil: Automovil = this.FormAuto.value;
+    this.servicioAutomoviles.post(automovil).subscribe((res: Automovil) => {
+      this.Cancelar();
+      this.modalDialogService.Alert('Registro agregado correctamente.');
+    });
+    this.listado();
   }
 
-  Cancelar(){
-
+  Cancelar() {
+    this.AccionABMC = 'L';
   }
-
-
 }
