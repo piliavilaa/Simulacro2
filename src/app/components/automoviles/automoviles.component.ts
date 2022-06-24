@@ -48,7 +48,7 @@ export class AutomovilesComponent implements OnInit {
   constructor(private servicioAutomoviles: AutomovilesService) {}
 
   ngOnInit() {
-    this.listado();
+    this.Buscar();
   }
 
   listado() {
@@ -71,12 +71,15 @@ export class AutomovilesComponent implements OnInit {
       });
   }
   Aceptar() {
+    this.submitted = true;
     let automovil: Automovil = this.FormAuto.value;
-    this.servicioAutomoviles.post(automovil).subscribe((res: Automovil) => {
-      this.Cancelar();
-      this.modalDialogService.Alert('Registro agregado correctamente.');
-    });
-    this.listado();
+    if (this.AccionABMC == 'A') {
+      this.servicioAutomoviles.post(automovil).subscribe((automovilNuevo: Automovil) => {
+        this.Cancelar();
+        this.modalDialogService.Alert('Registro agregado correctamente.');
+        this.Buscar();
+      });
+    }
   }
 
   Cancelar() {
