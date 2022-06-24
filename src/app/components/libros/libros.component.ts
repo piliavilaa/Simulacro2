@@ -46,7 +46,6 @@ export class LibrosComponent implements OnInit {
 
   constructor(
     private servicioLibros: LibrosService,
-    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {

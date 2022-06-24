@@ -1,3 +1,37 @@
+<!-- Formulario Filtro de busqueda, se ve cuando la accion es Listado(busqueda/listado)-->
+<form name="FormBusqueda" [formGroup]="FormBusqueda" *ngIf="AccionABMC == 'L'">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-4 col-md-2">
+        <label class="col-form-label">Marca:</label>
+      </div>
+
+      <div class="col-sm-8 col-md-4">
+        <input
+          type="text"
+          name="Marca"
+          class="form-control"
+          formControlName="Marca"
+          maxlength="100"
+        />
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- Botones -->
+    <div class="row justify-content-center botones">
+      <button type="button" class="btn btn-primary" (click)="Buscar()">
+        <i class="fa fa-search"> </i> Buscar
+      </button>
+      <button type="button" class="btn btn-primary" (click)="Agregar()">
+        <i class="fa fa-plus"> </i>
+        Agregar
+      </button>
+    </div>
+  </div>
+</form>
+
 <table class="table table-hover table-sm table-bordered table-striped">
   <thead>
     <tr>
@@ -17,41 +51,3 @@
     </tr>
   </tbody>
 </table>
-
-<form>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-4 col-md-2">
-        <label class="col-form-label">Marca:</label>
-      </div>
-      <div class="col-sm-8 col-md-4">
-        <input
-          type="text"
-          id="Mar"
-          name="Mar"
-          class="form-control"
-          maxlength="55"
-        />
-      </div>
-    </div>
-    <hr />
-    <!-- Botones -->
-    <div class="row justify-content-center botones">
-      <button type="button" class="btn btn-primary" (click)="buscar()">
-        <i class="fa fa-search"> </i> Buscar
-      </button>
-    </div>
-  </div>
-</form>
-
-<form>
-  <div class="container-fluid">
-    <!-- Botones -->
-    <div class="row justify-content-center botones">
-      <button type="button" class="btn btn-primary" (click)="buscar()">
-        <i class="fa fa-plus"> </i>
-        <a class="text-white" routerLink="/formAutomovil"> Agregar </a>
-      </button>
-    </div>
-  </div>
-</form>

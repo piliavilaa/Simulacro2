@@ -20,7 +20,9 @@ export class AutomovilesService {
 
   getMarca(marca: string) {
     let params = new HttpParams();
-    params = params.append('Marca', marca);
+    if (marca != null && marca != '') {
+      params = params.append('Marca', marca);
+    }
     return this.httpClient.get(this.resourceUrl, { params: params });
   }
 
